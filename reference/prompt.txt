@@ -1,0 +1,79 @@
+Lets put all of the above together and do this again. 
+
+From the earlier code where we read an excel file and loaded the data using upsert into MongoDB, we want now to load the same data in Qdrant database as well as MongoDB both. We will again use nodejs as the coding language. 
+
+We want to now expose the functionality as REST API. 
+
+Generate separate files for excel functionality, mongodb functionality, qdrant functionality, elastic search functionality for searching, server.js file to initiate the API server,  routes, controller, service to manage all business logic.
+
+API should then provide endpoint to trigger the data load, contains search for employee by name, project, Resource Type, and Reporting Manager, Another endpoint should be able to do Q&A on our employee data by using vector database and llama3.2 model.   
+
+To support searching use elastic search in one container and expose as API. 
+To support Q&A on employee data use Qdrant database in one container exposed as API and llama3.2 model hosted using Ollama in another container and exposed as API. 
+
+Also provide code for docker file and docker compose to run all of this in docker environment. 
+
+Environment should have one image for running mongoDB container, one for running elastic search, one for running qdrant container, one for running llama 3.2 using ollama and one for running REST API. 
+
+Create a simple htmx file with tailwind css based UI for provisioning separate pages allowing for upload, search and Q&A. Provide access on home page with card interface for each functionality. 
+Frontend htmx page integrated with backend APIs to support the load, search and Q&A functionalities
+
+Provided detailed instructions to setup the code and run in Mac environment.
+
+-------
+Create source code for full stack HRMS system with following requirements: 
+
+Frontend built using htmx and tailwind css. 
+Home page to show case three cards - Upload Employee Allocation, Search Employee Details, Q&A on Employee Details.
+
+Upload Employee Allocation should accept an excel file to upload and process. 
+This should invoke a backend API to upload and process. 
+This should show success with record count processed or failure message
+
+Search Employee Details should accept a term to search, call the backend search api with the term and show the returned results in a grid below. 
+It should show all the fields submitted during upload. 
+
+Q&A on Employee data should accept a question and submit it to backend api which will make use of vector database and ollama's llama model to answer the question. 
+It should show the response received from the API to the question 
+
+For Backend use nodejs rest API.
+It should separate out code in different files and folders for initiating the api server, routes, controllers, services, functionality to interact with excel file, mongoDB, Qdrant database, elastic search and llama model.
+Keep all controllers in separate files. 
+
+API should expose following endpoints:
+upload - should receive excel file, read and process it using upsert operations and store in mongoDB, generate embeddings in Qdrant database, and generate search index in elasticsearch include all fields. It should return success with count of rows processed and failure incase of error. 
+we want to avoid using openAI API for generating embeddings to store in qdrant database, so make use of local code or llama model hosted in container. 
+The data should then be upsert(Insert new, update existing, mark deleted missing) into a mongoDB database. 
+Provision released field (yes/no) as the extra field to track deleted or missing employees. 
+Treat EmployeeID as the identifying key for each employee and use it to insert, update and mark as released. 
+Ignore the field called Function in the excel. 
+Excel to be uploaded will have the following fields - 
+Employee Id 
+Employee Name
+Project
+Skill
+Role
+Allocation
+Remarks
+Resource Type
+Project Type
+Function
+Assign Date
+Release Date
+Reporting Manager
+
+search - this should receive a search term and perform a search using elastic search. This should return all the matching result with full details. 
+
+qna - this should receive a question and do a similarity search first in qdrant database and then take top 10 results and query the llama model for answer. This should return the final answer. 
+
+All our services should be hosted in docker using docker containers and docker compose file. 
+So generate docker file for backend and frontend. 
+Setup one container for mongoDB
+Setup one container for qdrant database
+setup one container for elasticsearch 
+setup one container for ollama that will host llama model and expose as api service
+setup REST API as a separate container with hot reloading enabled 
+setup Frontend as separate container with hot reloading options enabled. 
+
+
+
