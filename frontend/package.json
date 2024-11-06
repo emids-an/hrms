@@ -1,0 +1,14 @@
+{
+    "name": "hrms-frontend",
+    "version": "1.0.0",
+    "scripts": {
+      "dev": "http-server . -p 3000 -c-1",
+      "build:css": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --watch"
+    },
+    "devDependencies": {
+      "autoprefixer": "^10.4.16",
+      "http-server": "^14.1.1",
+      "postcss": "^8.4.32",
+      "tailwindcss": "^3.3.6"
+    }
+}

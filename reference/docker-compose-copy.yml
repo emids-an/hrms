@@ -47,6 +47,24 @@ services:
     networks:
       - app-network
 
+  ollama:
+    build:
+      context: .
+      dockerfile: Dockerfile.ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./docker/data/ollama:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    networks:
+      - app-network
+
   backend:
     build:
       context: ./backend/
@@ -62,13 +80,12 @@ services:
       - MONGODB_URI=mongodb://mongodb:27017/hrms
       - ELASTICSEARCH_NODE=http://elasticsearch:9200
       - QDRANT_URL=http://qdrant:6333
-      - OLLAMA_API_URL=http://host.docker.internal:11434
+      - OLLAMA_API_URL=http://ollama:11434
     depends_on:
       - mongodb
       - elasticsearch
       - qdrant
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - ollama
     networks:
       - app-network
 

@@ -1,0 +1,15 @@
+FROM ollama/ollama:latest
+
+# Create a script to initialize the model
+COPY <<EOF /init-model.sh
+#!/bin/sh
+ollama serve &
+sleep 5
+ollama pull llama2
+EOF
+
+# Make the script executable
+RUN chmod +x /init-model.sh
+
+# Use the script as the entry point
+ENTRYPOINT ["/init-model.sh"]

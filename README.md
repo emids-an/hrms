@@ -124,17 +124,6 @@ hrms-system/
 
 # Employee Data System Setup Instructions
 
-## Prerequisites
-
-1. Install Docker Desktop for Mac:
-   ```bash
-   brew install --cask docker
-   ```
-
-2. Install Git:
-   ```bash
-   brew install git
-   ```
 
 ## Setup Steps
 
@@ -143,6 +132,20 @@ hrms-system/
    git clone <repository-url>
    cd employee-data-system
    ```
+
+2. setup directories
+```
+    # Clone your repository
+    git clone <repository-url>
+    cd hrms-system
+
+    # Make the setup script executable and run it
+    chmod +x setup.sh
+    ./setup.sh
+
+    # Copy the .env template
+    cp .env.template .env
+```
 
 2. Create a .env file in the backend directory:
    ```bash
